@@ -100,6 +100,56 @@ CREATE TABLE bus_status (
     PRIMARY KEY (record_id)
 );
 ```
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/final-project-12.png)
+
+Next, we need to set up Apache Nifi, for the final project we are going to use 1.12.0 version since it is more stable compare to more newer versions.
+
+```
+docker run --name nifi -p 8080:8080 -p 8443:8443 --link mysql:mysql -d apache/nifi:1.12.0
+```
+
+Now if you visit http://'':8080/nifi/ page, you should see the NiFi interface. So we can start working on our ingestion logic.
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/final-project-13.png)
+
+For our final project, we are going to use Processor, Processor groups and Template. First step, we are going to create a processor.
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/final-project-14.png)
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/final-project-16.png)
+
+The processor is designed to connect to the Rest Bus API endpoint and gather JSON blobs. To configure the InvokeHTTP processor, double-click on it and access the settings. Change the log level from WARN to INFO. Then, select the scheduling option and adjust the "Run Schedule" to 30 seconds. This setting will prompt the processor to retrieve API information every 30 seconds, which is a reasonable timeframe for the project and will safeguard our IP from being blacklisted.
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/final-project-17.png)
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/final-project-18.png)
+
+Under Properties add the Rest Bus API endpoint under Remote URL and click apply.
+
+```
+http://restbus.info/api/agencies/ttc/routes/7/vehicles
+```
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/final-project-19.png)
+
+Next we will add the LogAttribute Processor to handle edge cases.
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/final-project-20.png)
+
+Now we can connect two processors by drawing this arrow and pointing it to the LogAttribute Processor.
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/final-project-21.png)
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/final-project-22.png)
+
+Alter connecting them, select Failure, No Retry, Retry in the LogAttribute Processor and click add.
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/final-project-23.png)
+
+Next, we need to add another processor that will convert JSON blobs into SQL inserts. We will be using it to insert new records into our target MySQL table. For this purpose, we are going to use ConverterJSONToSQL Processor.
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/final-project-24.png)
+
 
 
 

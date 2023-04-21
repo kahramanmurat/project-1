@@ -302,6 +302,108 @@ We can also check sql queue by listing it.
 
 ![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/final-project-47.png)
 
+If you see some question marks in values, those are used as placeholders for attributes taken from FlowFiles.
+
+```
+INSERT INTO bus_status 
+(id, routeId, directionId, predictable, secsSinceReport, kph, heading, lat, lon, leadingVehicleId)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+```
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/final-project-48.png)
+
+Now if we exec into MySQL container and log into MySQL we can see that the bus_status table is populated with data.
+
+```
+docker exec -it mysql bash
+mysql -u root -p
+```
+
+```
+use demo;
+select * from bus_status limit 10;
+```
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/final-project-49.png)
+
+Using Processor group, we can create a multiple pipelines processing different bus routes. We can template our current pipeline and add it to a new processor group. Processor groups allow better organization of different data processing pipelines. Templates can be dowloaded as XML files and can be version controlled by Git.
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/final-project-50.png)
+
+## Debezium and Kafka Setup
+
+Running Debezium involves Zookeeper, Kafka, and services that run Debezium's connectors. Debezium is a distributed platform that turns your existing databases into event streams, so applications can quickly react to each row-level change in the databases. Debezium is built on top of Kafka and provides Kafka Connect compatible connectors that monitor specific database management systems. Debezium records the history of data changes in Kafka topics.
+
+First step we are going to set up Zookeeper
+
+```
+docker run -dit --name zookeeper -p 2181:2181 -p 2888:2888 -p 3888:3888 debezium/zookeeper:1.6
+```
+Next we need to create a Kafka container
+
+```
+docker run -dit --name kafka -p 9092:9092 --link zookeeper:zookeeper debezium/kafka:1.6
+```
+
+Now we can set up a Debezium connect container which will create a connection with Kafka, Zookeeper and MySQL containers.
+
+```
+docker run -dit --name connect -p 8083:8083 -e GROUP_ID=1 -e CONFIG_STORAGE_TOPIC=my-connect-configs -e OFFSET_STORAGE_TOPIC=my-connect-offsets -e STATUS_STORAGE_TOPIC=my_connect_statuses --link zookeeper:zookeeper --link kafka:kafka --link mysql:mysql debezium/connect:1.6
+```
+
+Now we should see all five containers running.
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/final-project-51.png)
+
+We can test if the Kafka connect application up and running by calling the following command.
+
+```
+curl -H "Accept:application/json" localhost:8083
+```
+
+You should see a similar response.
+
+```
+{"version":"2.7.1","commit":"61dbce85d0d41457","kafka_cluster_id":"O5xBxRkRRFS3hX194Edn2A"}
+```
+
+To check connectors that are currently running use the following command
+
+```
+curl -H "Accept:application/json" localhost:8083/connectors/
+```
+
+Now we are going to enable MySQL debezium connector for Kafka Connect, so we can start monitoring changes in our MySQL target table. We need to run the following command.
+
+```
+curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" localhost:8083/connectors/ -d '{ "name": "inventory-connector", "config": { "connector.class": "io.debezium.connector.mysql.MySqlConnector", "tasks.max": "1", "database.hostname": "mysql", "database.port": "3306", "database.user": "debezium", "database.password": "dbz", "database.server.id": "184054", "database.server.name": "dbserver1", "database.include.list": "demo", "database.history.kafka.bootstrap.servers": "kafka:9092", "database.history.kafka.topic": "dbhistory.demo" } }'
+```
+
+To check if the Kafka topic was created we can exec into kafka docker container and run the following command.
+
+```
+docker exec -it kafka bash
+bin/kafka-topics.sh --list --zookeeper zookeeper:2181
+```
+
+You should see that the Kafka topic was created.
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/final-project-52.png)
+
+Now we can check if our Kafka topic is receiving data by running the following command.
+
+```
+bin/kafka-console-consumer.sh --topic dbserver1.demo.bus_status --bootstrap-server '<container_id>':9092
+```
+You should see incoming messages in our Kafka topic.
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/final-project-53.png)
+
+```
+{"schema":{"type":"struct","fields":[{"type":"struct","fields":[{"type":"int32","optional":false,"field":"record_id"},{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"routeId"},{"type":"string","optional":true,"field":"directionId"},{"type":"int16","optional":true,"field":"predictable"},{"type":"int32","optional":false,"field":"secsSinceReport"},{"type":"int32","optional":false,"field":"kph"},{"type":"int32","optional":true,"field":"heading"},{"type":"double","optional":false,"field":"lat"},{"type":"double","optional":false,"field":"lon"},{"type":"int32","optional":true,"field":"leadingVehicleId"},{"type":"int64","optional":true,"name":"io.debezium.time.Timestamp","version":1,"default":0,"field":"event_time"}],"optional":true,"name":"dbserver1.demo.bus_status.Value","field":"before"},{"type":"struct","fields":[{"type":"int32","optional":false,"field":"record_id"},{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"routeId"},{"type":"string","optional":true,"field":"directionId"},{"type":"int16","optional":true,"field":"predictable"},{"type":"int32","optional":false,"field":"secsSinceReport"},{"type":"int32","optional":false,"field":"kph"},{"type":"int32","optional":true,"field":"heading"},{"type":"double","optional":false,"field":"lat"},{"type":"double","optional":false,"field":"lon"},{"type":"int32","optional":true,"field":"leadingVehicleId"},{"type":"int64","optional":true,"name":"io.debezium.time.Timestamp","version":1,"default":0,"field":"event_time"}],"optional":true,"name":"dbserver1.demo.bus_status.Value","field":"after"},{"type":"struct","fields":[{"type":"string","optional":false,"field":"version"},{"type":"string","optional":false,"field":"connector"},{"type":"string","optional":false,"field":"name"},{"type":"int64","optional":false,"field":"ts_ms"},{"type":"string","optional":true,"name":"io.debezium.data.Enum","version":1,"parameters":{"allowed":"true,last,false,incremental"},"default":"false","field":"snapshot"},{"type":"string","optional":false,"field":"db"},{"type":"string","optional":true,"field":"sequence"},{"type":"string","optional":true,"field":"table"},{"type":"int64","optional":false,"field":"server_id"},{"type":"string","optional":true,"field":"gtid"},{"type":"string","optional":false,"field":"file"},{"type":"int64","optional":false,"field":"pos"},{"type":"int32","optional":false,"field":"row"},{"type":"int64","optional":true,"field":"thread"},{"type":"string","optional":true,"field":"query"}],"optional":false,"name":"io.debezium.connector.mysql.Source","field":"source"},{"type":"string","optional":false,"field":"op"},{"type":"int64","optional":true,"field":"ts_ms"},{"type":"struct","fields":[{"type":"string","optional":false,"field":"id"},{"type":"int64","optional":false,"field":"total_order"},{"type":"int64","optional":false,"field":"data_collection_order"}],"optional":true,"field":"transaction"}],"optional":false,"name":"dbserver1.demo.bus_status.Envelope"},"payload":{"before":null,"after":{"record_id":487,"id":8326,"routeId":7,"directionId":"7_0_7","predictable":1,"secsSinceReport":7,"kph":0,"heading":166,"lat":43.666602,"lon":-79.4111855,"leadingVehicleId":null,"event_time":1656980233000},"source":{"version":"1.8.0.Final","connector":"mysql","name":"dbserver1","ts_ms":1656980233000,"snapshot":"false","db":"demo","sequence":null,"table":"bus_status","server_id":223344,"gtid":null,"file":"mysql-bin.000011","pos":1532138,"row":0,"thread":null,"query":null},"op":"c","ts_ms":1656980233228,"transaction":null}}
+```
+
+
 
 
 

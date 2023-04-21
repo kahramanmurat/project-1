@@ -81,7 +81,8 @@ CREATE DATABASE demo;`
 
 Now we can create the table with pre-defined schema. We are going to use it to collect data from the bus API.
 
-`use demo;
+```
+use demo;
 
 CREATE TABLE bus_status (
     record_id INT NOT NULL AUTO_INCREMENT,
@@ -97,7 +98,8 @@ CREATE TABLE bus_status (
     leadingVehicleId INT,
     event_time DATETIME DEFAULT NOW(),
     PRIMARY KEY (record_id)
-);`
+);
+```
 
 
 

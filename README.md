@@ -400,8 +400,179 @@ You should see incoming messages in our Kafka topic.
 ![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/final-project-53.png)
 
 ```
-{"schema":{"type":"struct","fields":[{"type":"struct","fields":[{"type":"int32","optional":false,"field":"record_id"},{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"routeId"},{"type":"string","optional":true,"field":"directionId"},{"type":"int16","optional":true,"field":"predictable"},{"type":"int32","optional":false,"field":"secsSinceReport"},{"type":"int32","optional":false,"field":"kph"},{"type":"int32","optional":true,"field":"heading"},{"type":"double","optional":false,"field":"lat"},{"type":"double","optional":false,"field":"lon"},{"type":"int32","optional":true,"field":"leadingVehicleId"},{"type":"int64","optional":true,"name":"io.debezium.time.Timestamp","version":1,"default":0,"field":"event_time"}],"optional":true,"name":"dbserver1.demo.bus_status.Value","field":"before"},{"type":"struct","fields":[{"type":"int32","optional":false,"field":"record_id"},{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"routeId"},{"type":"string","optional":true,"field":"directionId"},{"type":"int16","optional":true,"field":"predictable"},{"type":"int32","optional":false,"field":"secsSinceReport"},{"type":"int32","optional":false,"field":"kph"},{"type":"int32","optional":true,"field":"heading"},{"type":"double","optional":false,"field":"lat"},{"type":"double","optional":false,"field":"lon"},{"type":"int32","optional":true,"field":"leadingVehicleId"},{"type":"int64","optional":true,"name":"io.debezium.time.Timestamp","version":1,"default":0,"field":"event_time"}],"optional":true,"name":"dbserver1.demo.bus_status.Value","field":"after"},{"type":"struct","fields":[{"type":"string","optional":false,"field":"version"},{"type":"string","optional":false,"field":"connector"},{"type":"string","optional":false,"field":"name"},{"type":"int64","optional":false,"field":"ts_ms"},{"type":"string","optional":true,"name":"io.debezium.data.Enum","version":1,"parameters":{"allowed":"true,last,false,incremental"},"default":"false","field":"snapshot"},{"type":"string","optional":false,"field":"db"},{"type":"string","optional":true,"field":"sequence"},{"type":"string","optional":true,"field":"table"},{"type":"int64","optional":false,"field":"server_id"},{"type":"string","optional":true,"field":"gtid"},{"type":"string","optional":false,"field":"file"},{"type":"int64","optional":false,"field":"pos"},{"type":"int32","optional":false,"field":"row"},{"type":"int64","optional":true,"field":"thread"},{"type":"string","optional":true,"field":"query"}],"optional":false,"name":"io.debezium.connector.mysql.Source","field":"source"},{"type":"string","optional":false,"field":"op"},{"type":"int64","optional":true,"field":"ts_ms"},{"type":"struct","fields":[{"type":"string","optional":false,"field":"id"},{"type":"int64","optional":false,"field":"total_order"},{"type":"int64","optional":false,"field":"data_collection_order"}],"optional":true,"field":"transaction"}],"optional":false,"name":"dbserver1.demo.bus_status.Envelope"},"payload":{"before":null,"after":{"record_id":487,"id":8326,"routeId":7,"directionId":"7_0_7","predictable":1,"secsSinceReport":7,"kph":0,"heading":166,"lat":43.666602,"lon":-79.4111855,"leadingVehicleId":null,"event_time":1656980233000},"source":{"version":"1.8.0.Final","connector":"mysql","name":"dbserver1","ts_ms":1656980233000,"snapshot":"false","db":"demo","sequence":null,"table":"bus_status","server_id":223344,"gtid":null,"file":"mysql-bin.000011","pos":1532138,"row":0,"thread":null,"query":null},"op":"c","ts_ms":1656980233228,"transaction":null}}
+{"schema":{"type":"struct","fields":[{"type":"struct","fields":[{"type":"int32","optional":false,"field":"record_id"},{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"routeId"},{"type":"string","optional":true,"field":"directionId"},{"type":"int16","optional":true,"field":"predictable"},{"type":"int32","optional":false,"field":"secsSinceReport"},{"type":"int32","optional":false,"field":"kph"},{"type":"int32","optional":true,"field":"heading"},{"type":"double","optional":false,"field":"lat"},{"type":"double","optional":false,"field":"lon"},{"type":"int32","optional":true,"field":"leadingVehicleId"},{"type":"int64","optional":true,"name":"io.debezium.time.Timestamp","version":1,"default":0,"field":"event_time"}],"optional":true,"name":"dbserver1.demo.bus_status.Value","field":"before"},{"type":"struct","fields":[{"type":"int32","optional":false,"field":"record_id"},{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"routeId"},{"type":"string","optional":true,"field":"directionId"},{"type":"int16","optional":true,"field":"predictable"},{"type":"int32","optional":false,"field":"secsSinceReport"},{"type":"int32","optional":false,"field":"kph"},{"type":"int32","optional":true,"field":"heading"},{"type":"double","optional":false,"field":"lat"},{"type":"double","optional":false,"field":"lon"},{"type":"int32","optional":true,"field":"leadingVehicleId"},{"type":"int64","optional":true,"name":"io.debezium.time.Timestamp","version":1,"default":0,"field":"event_time"}],"optional":true,"name":"dbserver1.demo.bus_status.Value","field":"after"},{"type":"struct","fields":[{"type":"string","optional":false,"field":"version"},{"type":"string","optional":false,"field":"connector"},{"type":"string","optional":false,"field":"name"},{"type":"int64","optional":false,"field":"ts_ms"},{"type":"string","optional":true,"name":"io.debezium.data.Enum","version":1,"parameters":{"allowed":"true,last,false,incremental"},"default":"false","field":"snapshot"},{"type":"string","optional":false,"field":"db"},{"type":"string","optional":true,"field":"sequence"},{"type":"string","optional":true,"field":"table"},{"type":"int64","optional":false,"field":"server_id"},{"type":"string","optional":true,"field":"gtid"},{"type":"string","optional":false,"field":"file"},{"type":"int64","optional":false,"field":"pos"},{"type":"int32","optional":false,"field":"row"},{"type":"int64","optional":true,"field":"thread"},{"type":"string","optional":true,"field":"query"}],"optional":false,"name":"io.debezium.connector.mysql.Source","field":"source"},{"type":"string","optional":false,"field":"op"},{"type":"int64","optional":true,"field":"ts_ms"},{"type":"struct","fields":[{"type":"string","optional":false,"field":"id"},{"type":"int64","optional":false,"field":"total_order"},{"type":"int64","optional":false,"field":"data_collection_order"}],"optional":true,"field":"transaction"}],"optional":false,"name":"dbserver1.demo.bus_status.Envelope"},"payload":{"before":null,"after":{"record_id":487,"id":8326,"routeId":7,"directionId":"7_0_7","predictable":1,"secsSinceReport":7,"kph":0,"heading":166,"lat":43.666602,"lon":-79.4111855,"leadingVehicleId":null,"event_time":1656980233000},"source":{"version":"1.8.0.Final","connector":"mysql","name":"dbserver1","ts_ms":1656980233000,"snapshot":"false","db":"demo","sequence":null,"table":"bus_status","server_id":223344,"gtid":null,"file":"mysql-bin.000011","pos":1532138,"row":0,"thread":null,"query":null},"op":"c","ts_ms":1656980233228,"transaction":null}
 ```
+
+## EMR Setup
+
+Now, let’s create an EMR cluster.
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/msk23.jpg)
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/msk24.jpg)
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/msk25.jpg)
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/msk26.jpg)
+
+Keep note of the IAM Role associated with EC2 Instance Profile. You need to make sure this role also has AmazonS3FullAccess. This will allow the EC2 instance to load the python script from S3.
+
+Use the same EC2 key pair as your VM.
+
+When EMR is up and running, ssh into it and submit our streaming application by using the following command. When you can’t connect, check EMR Master security group and add SSH rule. Run this from your computer.
+
+```
+ssh -i ~/Location_of_your_pem_key/final-project-DE.pem hadoop@ec2-3-128-190-110.us-east-2.compute.amazonaws.com
+```
+
+This command can be found under Summary tab.
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/msk27.jpg)
+
+Here is our python script. It is available in the zip folder.
+
+```
+from pyspark.sql import SparkSession
+from pyspark.sql.types import *
+from pyspark.sql.functions import *
+
+# NOTE: This variable needs to be reviewed if we are working with a new MSK
+BOOTSTRAP_SERVERS='b-1.finalproject.m5cy8k.c3.kafka.ca-central-1.amazonaws.com:9092,b-3.finalproject.m5cy8k.c3.kafka.ca-central-1.amazonaws.com:9092,b-2.finalproject.m5cy8k.c3.kafka.ca-central-1.amazonaws.com:9092'
+
+if __name__ == "__main__":
+   spark = SparkSession.builder.getOrCreate()
+
+   # NOTE: we cant load the schema file from the local machine anymore, so we have to pull it from s3
+   schema = spark.read.json('s3://bus-service-wcd-eu-west-1/msk/bus_status_schema.json').schema
+
+ # We have to connect to the bootstrap servers, instead of kafka:9092
+   df = spark \
+       .readStream \
+       .format("kafka") \
+       .option("kafka.bootstrap.servers", BOOTSTRAP_SERVERS) \
+       .option("subscribe", "dbserver1.demo.bus_status") \
+       .option("startingOffsets", "latest") \
+       .load()
+
+   transform_df = df.select(col("value").cast("string")).alias("value").withColumn("jsonData",from_json(col("value"),schema)).select("jsonData.payload.after.*")
+
+   # NOTE: We cannot checkpoint to a local machine because we are working on the cloud. S3 is a reliable location for the cluster
+   checkpoint_location = "s3://bus-service-wcd-eu-west-1/msk/checkpoint/sparkjob"
+
+   table_name = 'bus_status'
+   hudi_options = {
+       'hoodie.table.name': table_name,
+       "hoodie.datasource.write.table.type": "COPY_ON_WRITE",
+       'hoodie.datasource.write.recordkey.field': 'record_id',
+       'hoodie.datasource.write.partitionpath.field': 'routeId',
+       'hoodie.datasource.write.table.name': table_name,
+       'hoodie.datasource.write.operation': 'upsert',
+       'hoodie.datasource.write.precombine.field': 'event_time',
+      'hoodie.upsert.shuffle.parallelism': 100,
+       'hoodie.insert.shuffle.parallelism': 100
+   }
+
+   s3_path = "s3://bus-service-wcd-eu-west-1/msk/routes"
+
+   def write_batch(batch_df, batch_id):
+       batch_df.write.format("org.apache.hudi") \
+       .options(**hudi_options) \
+       .mode("append") \
+       .save(s3_path)
+
+   transform_df.writeStream.option("checkpointLocation", checkpoint_location).queryName("wcd-bus-streaming").foreachBatch(write_batch).start().awaitTermination()
+```
+
+We need to prep the python code, see the Notes in the pyspark_job.py file for the changes.
+
+copy the python file over to s3 bucket: s3://''/jars/pyspark_job.py
+
+```
+aws s3 cp EMR-setup/pyspark_job.py 
+s3://bus-service-wcd-eu-west-1/msk/jars/pyspark_job.py
+```
+
+## Spark-submit
+
+```
+# SSH into the emr-master from your computer
+ssh -i 01-setup-ec-vm/nifi-ec-vm.pem hadoop@ec2-3-97-52-3.ca-central-1.compute.amazonaws.com
+
+#Submitting the spark streaming app using  client mode.
+spark-submit --master yarn --deploy-mode client --name wcd-streaming-app --jars /usr/lib/hudi/hudi-spark-bundle.jar,/usr/lib/spark/external/lib/spark-avro.jar --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.1 --conf "spark.serializer=org.apache.spark.serializer.KryoSerializer" --conf "spark.sql.hive.convertMetastoreParquet=false" s3://bus-service-wcd-eu-west-1/msk/jars/pyspark_job.py
+
+#Submitting the spark streaming app using  cluster mode.
+spark-submit --master yarn --deploy-mode cluster --name wcd-stremaing-app --jars /usr/lib/hudi/hudi-spark-bundle.jar,/usr/lib/spark/external/lib/spark-avro.jar --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.1 --conf "spark.serializer=org.apache.spark.serializer.KryoSerializer" --conf "spark.sql.hive.convertMetastoreParquet=false" s3://bus-service-wcd-eu-west-1/msk/jars/pyspark_job.py
+```
+
+Shortly after submitting your spark streaming app, you will be able to see the data in Athena table.
+
+## Athena
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/Athena-1.png)
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/Athena-2.png)
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/Athena-3.png)
+
+Bulk add columns for your table:
+
+```
+record_id int, id int, routeId int, directionId string, kph int, predictable int, secsSinceReport int, heading int, lat double, lon double, leadingVehicleId int, event_time date
+```
+
+Make sure the data types are as below:
+
+```
+record_id INT NOT NULL AUTO_INCREMENT,
+id INT NOT NULL,
+routeId INT NOT NULL,
+directionId VARCHAR(40),
+kph INT NOT NULL,
+predictable BOOLEAN, ====> int
+secsSinceReport INT NOT NULL,
+heading INT,
+lat REAL NOT NULL ====>  double
+lon REAL NOT NULL ====> double
+leadingVehicleId INT,
+event_time DATETIME DEFAULT NOW()
+```
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/Athena-4.png)
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/Athena-5.png)
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/Athena-6.png)
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/Athena-7.png)
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/Athena-8.png)
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/Athena-11.png)
+
+Now check the results:
+
+```
+select * from "bus-service-wcd-eu-west-1"."routes" limit 100
+```
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/Athena-12.png)
+
+You will get the error:
+
+```
+No output location provided. An output location is required either through the Workgroup result configuration setting or as an API input.
+```
+
+To fix it:
+
+You have to go to Athena settings and specify an output path as shown above.
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/Athena-last.jpg)
+
+
+
+ 
 
 
 

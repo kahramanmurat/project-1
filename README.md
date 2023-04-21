@@ -12,6 +12,18 @@ By fetching data from the Rest Bus API, we can display it on Google Maps and uti
 
 The retrieved data will be stored in a MySQL database. To achieve this, we will utilize Kafka Connect, Kafka, and Zookeeper applications, which will monitor the MySQL database's Write Ahead Logs. These logs contain data about insertions, updates, and deletions, and they will be written to a MySQL table.
 
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/final-project-1.png)
+
+Change data capture (CDC) is a technique that captures only newly modified data from the target database and transmits it to downstream processes. Debezium is a reliable, high-speed, and user-friendly open-source platform for implementing CDC. By simply pointing it to your database, it begins transmitting CRUD operations downstream and has numerous connections to popular databases. In our project, the Debezium plugin will extract data from MySQL and send it to a Kafka topic via Kafka Connect.
+
+## Setting up Apache NiFi
+Our plan is to utilize Apache NiFi to extract data from the bus API and transmit it to the MySQL database, making the data available for further consumption. Apache NiFi is a versatile, drag-and-drop data engineering tool that is highly scalable and can be likened to a Swiss Army knife for big data integration. It is capable of bidirectional data transmission in batches or streams to numerous data sources.
+
+To implement NiFi, we will utilize Docker, which will run on an EC2 instance. For optimal performance, we recommend using a t2.xlarge or t2.2xlarge instance. So, let's begin by creating a new EC2 instance.
+
+
+
+
 
 
 

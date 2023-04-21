@@ -72,7 +72,33 @@ Before we deploy Apache NiFi we need to set up a MySQL database with an extra la
 
 `docker run -dit --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=debezium -e MYSQL_USER=mysqluser -e MYSQL_PASSWORD=mysqlpw debezium/example-mysql:1.6`
 
-`
+After MySQL is up and running, we will need to access the MySQL container and create a new database with a corresponding table. Nifi will be used to store the data retrieved from the Bus API into the MySQL table. This process imitates a typical business scenario where SQL databases are constantly updated with new data that needs to be captured for downstream processes. To log into MySQL, you will need to enter the password that was defined in the docker run command (debezium).
+
+`docker exec -it '<container_id>' bash
+mysql -u root -p 
+debezium # root password for MySWQL
+CREATE DATABASE demo;`
+
+Now we can create the table with pre-defined schema. We are going to use it to collect data from the bus API.
+
+`use demo;
+
+CREATE TABLE bus_status (
+    record_id INT NOT NULL AUTO_INCREMENT,
+    id INT NOT NULL,
+    routeId INT NOT NULL,
+    directionId VARCHAR(40),
+    predictable BOOLEAN,
+    secsSinceReport INT NOT NULL,
+    kph INT NOT NULL,
+    heading INT,
+    lat REAL NOT NULL, 
+    lon REAL NOT NULL,
+    leadingVehicleId INT,
+    event_time DATETIME DEFAULT NOW(),
+    PRIMARY KEY (record_id)
+);`
+
 
 
 

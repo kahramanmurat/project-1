@@ -21,6 +21,12 @@ Our plan is to utilize Apache NiFi to extract data from the bus API and transmit
 
 To implement NiFi, we will utilize Docker, which will run on an EC2 instance. For optimal performance, we recommend using a t2.xlarge or t2.2xlarge instance. So, let's begin by creating a new EC2 instance.
 
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/final-project-2.png)
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/final-project-3.png)
+
+Select instance type and key pair. You can create a new key pair or use an existing one.
+
 
 
 

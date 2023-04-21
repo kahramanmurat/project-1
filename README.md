@@ -52,6 +52,26 @@ Since we are going to use this instance to collect data from the API we should u
 After a few moments, our EC2 should have running status and we can ssh into it.
 
 `ssh -i ~/.ssh/final-project-DE.pem ec2-user@'<your_EC2_external_IP>'
+
+**Now we need to install Docker:**
+
+`sudo yum update -y 
+sudo yum install docker -y`
+
+**Start Docker services:**
+
+`sudo service docker start
+sudo systemctl enable docker
+sudo usermod -a -G docker ec2-user `
+
+Exit and reconnect to EC2
+
+## Create MySQL - Debezium
+
+Before we deploy Apache NiFi we need to set up a MySQL database with an extra layer called Debezium for CDC.
+
+`docker run -dit --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=debezium -e MYSQL_USER=mysqluser -e MYSQL_PASSWORD=mysqlpw debezium/example-mysql:1.6`
+
 `
 
 

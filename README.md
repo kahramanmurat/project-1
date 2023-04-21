@@ -27,6 +27,26 @@ To implement NiFi, we will utilize Docker, which will run on an EC2 instance. Fo
 
 Select instance type and key pair. You can create a new key pair or use an existing one.
 
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/final-project-4.png)
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/final-project-5.png)
+
+You can create a new security group or use an existing one.
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/final-project-6.png)
+
+For now, we can use a security group with All Traffic rule.
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/final-project-7.png)
+
+Since we are going to use this instance to collect data from the API we should use a larger storage.
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/final-project-8.png)
+
+
+
+
+
 
 
 

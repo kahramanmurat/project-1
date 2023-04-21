@@ -43,7 +43,16 @@ Since we are going to use this instance to collect data from the API we should u
 
 ![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/final-project-8.png)
 
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/final-project-9.png)
 
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/final-project-10.png)
+
+![alt_text](https://weclouddata.s3.amazonaws.com/images/data_engineer/final-project-11.png)
+
+After a few moments, our EC2 should have running status and we can ssh into it.
+
+`ssh -i ~/.ssh/final-project-DE.pem ec2-user@'<your_EC2_external_IP>'
+`
 
 
 

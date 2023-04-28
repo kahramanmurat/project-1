@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+
+<property>
+<name>fs.defaultFS</name>
+    <value>s3://bus-service-wcd</value>
+  </property>
+
+  <property>
+    <name>fs.s3.awsAccessKeyId</name>
+    <value>awsAccessKeyId</value>
+  </property>
+
+  <property>
+    <name>fs.s3.awsSecretAccessKey</name>
+    <value>awsSecretAccessKey</value>
+  </property>
+
+  <property>
+    <name>fs.s3a.awsAccessKeyId</name>
+    <value>awsAccessKeyId</value>
+  </property>
+
+  <property>
+    <name>fs.s3a.awsSecretAccessKey</name>
+    <value>awsSecretAccessKey</value>
+  </property>
+
+  <property>
+    <name>fs.s3n.awsAccessKeyId</name>
+    <value>awsAccessKeyId</value>
+  </property>
+
+  <property>
+    <name>fs.s3n.awsSecretAccessKey</name>
+    <value>awsSecretAccessKey</value>
+  </property>
+
+  <property>
+    <name>fs.s3a.endpoint</name>
+    <value>s3.eu-west-1.amazonaws.com</value>
+  </property>
+
+  <property>
+    <name>fs.s3a.path.style.access</name>
+    <value>true</value>
+  </property>
+
+  <property>
+    <name>fs.s3a.signing-algorithm</name>
+    <value>S3SignerType</value>
+  </property>
+</configuration>
